@@ -15,15 +15,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.bumptech.glide.Glide;
 import com.example.rezatanha.finalproject.Model.Medicine.Medicine;
 import com.example.rezatanha.finalproject.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Objects;
@@ -55,6 +56,25 @@ public class AddMedicineActivity extends AppCompatActivity {
         howToUse = findViewById(R.id.how_to_use);
         unit = findViewById(R.id.drug_input_unit);
         value = findViewById(R.id.drug_input_value);
+        Bundle b = this.getIntent().getExtras();
+        if (b != null) {
+            Medicine medicine = (Medicine) b.getSerializable("Medicine");
+            if (medicine == null) {
+                finish();
+                return;
+            }
+            ImageView imageView = findViewById(R.id.added_drug_img);
+            imageView.setVisibility(View.VISIBLE);
+
+            Glide.with(getApplicationContext())
+                    .load(new File(Uri.parse(medicine.getImage()).getPath()))
+                    .into(imageView);
+
+            name.setText(medicine.getName());
+            description.setText(medicine.getDescription());
+            value.setText(String.valueOf(medicine.getValueOfUse()));
+        }
+
 
         ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(
                 this, R.array.unit_array, android.R.layout.simple_spinner_item);
@@ -76,7 +96,6 @@ public class AddMedicineActivity extends AppCompatActivity {
     }
 
     public void onImageAddFromCamera(View view) {
-
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(takePicture, GET_IMAGE_REQUEST_CODE);
     }
@@ -100,7 +119,6 @@ public class AddMedicineActivity extends AppCompatActivity {
                 imageView.setVisibility(View.VISIBLE);
                 imageView.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
-
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -148,9 +166,7 @@ public class AddMedicineActivity extends AppCompatActivity {
             med.setUnit(unit.getSelectedItem().toString());
             med.setValueOfUse(Float.parseFloat(value.getText().toString()));
             med.setImage(img);
-
             replyIntent.putExtra(EXTRA_REPLY, med);
-//                replyIntent.putExtra(EXTRA_REPLY, name);
             setResult(RESULT_OK, replyIntent);
         }
         finish();

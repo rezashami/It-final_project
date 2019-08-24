@@ -16,7 +16,7 @@ public class ParcelableUtil {
 
     public static byte[] toByteArray(Alarm alarm) {
         if (alarm == null) {
-            Log.e(TAG, "alarm is null");
+            Log.e(TAG, "ic_alarm_clock is null");
             return null;
         }
         byte[] data = null;

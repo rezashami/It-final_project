@@ -12,25 +12,25 @@ public class AlarmSetter {
 
 //    public void setGroupAlarm(List<DBAlarm> input) {
 //        for (int i = 0; i < input.size(); i++) {
-//            DBAlarm alarm = input.get(i);
+//            DBAlarm ic_alarm_clock = input.get(i);
 //            Calendar cal_alarm = Calendar.getInstance();
-//            if (alarm.getMyDate() == null) {
+//            if (ic_alarm_clock.getMyDate() == null) {
 //                cal_alarm.setTime(new Date());
 //                cal_alarm.add(Calendar.DATE, -1);
 //                cal_alarm.set(Calendar.HOUR, 17);
 //                cal_alarm.set(Calendar.MINUTE, 0);
 //                cal_alarm.set(Calendar.SECOND, 0);
 //            } else {
-//                cal_alarm.setTime(alarm.getMyDate());
+//                cal_alarm.setTime(ic_alarm_clock.getMyDate());
 //                cal_alarm.set(Calendar.HOUR, 17);
 //                cal_alarm.set(Calendar.MINUTE, 0);
 //                cal_alarm.set(Calendar.SECOND, 0);
 //            }
 //            Intent intent = new Intent("MY.ACTION.ALARM");
 //            intent.setClass(context, AlarmReceiver.class);
-//            intent.putExtra("Alarm", ParcelableUtil.toByteArray(alarm));
+//            intent.putExtra("Alarm", ParcelableUtil.toByteArray(ic_alarm_clock));
 //            PendingIntent pendingIntent;
-//            pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, 0);
+//            pendingIntent = PendingIntent.getBroadcast(context, ic_alarm_clock.getId(), intent, 0);
 //            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 //            Log.e(TAG, "Set to: " + cal_alarm.getTime().toString());
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -45,24 +45,24 @@ public class AlarmSetter {
 //        }
 //    }
 //
-//    public void setOneAlarm(DBAlarm alarm) {
+//    public void setOneAlarm(DBAlarm ic_alarm_clock) {
 //        Calendar cal_alarm = Calendar.getInstance();
-//        if (alarm.getMyDate() == null) {
+//        if (ic_alarm_clock.getMyDate() == null) {
 //            cal_alarm.setTime(new Date());
 //            cal_alarm.add(Calendar.DATE, -1);
 //            cal_alarm.set(Calendar.HOUR, 17);
 //            cal_alarm.set(Calendar.MINUTE, 0);
 //            cal_alarm.set(Calendar.SECOND, 0);
 //        } else {
-//            cal_alarm.setTime(alarm.getMyDate());
+//            cal_alarm.setTime(ic_alarm_clock.getMyDate());
 //            cal_alarm.set(Calendar.HOUR, 17);
 //            cal_alarm.set(Calendar.MINUTE, 0);
 //            cal_alarm.set(Calendar.SECOND, 0);
 //        }
 //        Intent intent = new Intent(context, AlarmReceiver.class);
-//        intent.putExtra("Alarm", ParcelableUtil.toByteArray(alarm));
+//        intent.putExtra("Alarm", ParcelableUtil.toByteArray(ic_alarm_clock));
 //        PendingIntent pendingIntent;
-//        pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, FILL_IN_DATA);
+//        pendingIntent = PendingIntent.getBroadcast(context, ic_alarm_clock.getId(), intent, FILL_IN_DATA);
 //        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 //        Log.e(TAG, "Set to: " + cal_alarm.getTime().toString());
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -76,9 +76,9 @@ public class AlarmSetter {
 //        }
 //    }
 //
-//    public void cancelAlarm(DBAlarm alarm) {
+//    public void cancelAlarm(DBAlarm ic_alarm_clock) {
 //        Intent intent = new Intent(context, AlarmReceiver.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, 0);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ic_alarm_clock.getId(), intent, 0);
 //        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 //        alarmManager.cancel(pendingIntent);
 //    }
@@ -88,8 +88,8 @@ public class AlarmSetter {
 //        class RUN implements Runnable {
 //            private final DBAlarm dbAlarm;
 //
-//            private RUN(DBAlarm alarm) {
-//                this.dbAlarm = alarm;
+//            private RUN(DBAlarm ic_alarm_clock) {
+//                this.dbAlarm = ic_alarm_clock;
 //            }
 //
 //            @Override

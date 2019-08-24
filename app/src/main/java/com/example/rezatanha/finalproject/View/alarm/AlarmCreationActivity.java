@@ -1,5 +1,6 @@
 package com.example.rezatanha.finalproject.View.alarm;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -72,7 +73,7 @@ public class AlarmCreationActivity extends AppCompatActivity {
                 if (alarm == null) {
                     alarm = new Alarm();
 //                    GetAlarmActivityId g = new GetAlarmActivityId()
-//                    alarm.setUnique(GetAlarmActivityId.getID());
+//                    ic_alarm_clock.setUnique(GetAlarmActivityId.getID());
                 }
                 alarm.setDates(days);
                 alarm.setHour(hour);
@@ -156,6 +157,7 @@ public class AlarmCreationActivity extends AppCompatActivity {
         startActivityForResult(intent_upload, 4);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

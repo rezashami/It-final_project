@@ -26,9 +26,11 @@ import java.util.Objects;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MedicineListActivity extends AppCompatActivity {
-    public static final int MEDICINE_WORK_ACTIVITY_REQUEST_CODE = 1;
+    public static final int MEDICINE_ADD_ACTIVITY_REQUEST_CODE = 1;
+    public static final int MEDICINE_SHOW_ACTIVITY_REQUEST_CODE = 2;
     public static final int MEDICINE_DELETE_RESULT_CODE = 11;
     public static final int MEDICINE_UPDATE_RESULT_CODE = 10;
+    public static final int NO_CHANGE_RESULT_CODE = 12;
 
     private MedicineViewModel medicineViewModel;
     private MedicineListAdapter adapter;
@@ -47,7 +49,7 @@ public class MedicineListActivity extends AppCompatActivity {
         adapter = new MedicineListAdapter(this, item -> {
             Intent myIntent = new Intent(getApplicationContext(), MedicineShowActivity.class);
             myIntent.putExtra("Medicine", item);
-            startActivityForResult(myIntent, MEDICINE_WORK_ACTIVITY_REQUEST_CODE);
+            startActivityForResult(myIntent, MEDICINE_SHOW_ACTIVITY_REQUEST_CODE);
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -60,7 +62,7 @@ public class MedicineListActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(MedicineListActivity.this, AddMedicineActivity.class);
-            startActivityForResult(intent, MEDICINE_WORK_ACTIVITY_REQUEST_CODE);
+            startActivityForResult(intent, MEDICINE_ADD_ACTIVITY_REQUEST_CODE);
         });
     }
 
@@ -124,16 +126,18 @@ public class MedicineListActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MEDICINE_WORK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == MEDICINE_ADD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Medicine medicine = (Medicine) data.getSerializableExtra(AddMedicineActivity.EXTRA_REPLY);
             medicineViewModel.insert(medicine);
-        } else if (requestCode == MEDICINE_WORK_ACTIVITY_REQUEST_CODE && resultCode == MEDICINE_UPDATE_RESULT_CODE) {
+        } else if (requestCode == MEDICINE_SHOW_ACTIVITY_REQUEST_CODE && resultCode == MEDICINE_UPDATE_RESULT_CODE) {
             Medicine medicine = (Medicine) data.getSerializableExtra(AddMedicineActivity.EXTRA_REPLY);
             medicineViewModel.update(medicine);
-        } else if (requestCode == MEDICINE_WORK_ACTIVITY_REQUEST_CODE && resultCode == MEDICINE_DELETE_RESULT_CODE) {
+        } else if (requestCode == MEDICINE_SHOW_ACTIVITY_REQUEST_CODE && resultCode == MEDICINE_DELETE_RESULT_CODE) {
             Medicine medicine = (Medicine) data.getSerializableExtra(AddMedicineActivity.EXTRA_REPLY);
             medicineViewModel.remove(medicine);
-        } else if (requestCode == MEDICINE_WORK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_CANCELED) {
+        } else if (requestCode == MEDICINE_SHOW_ACTIVITY_REQUEST_CODE && resultCode == NO_CHANGE_RESULT_CODE) {
+            Toast.makeText(getApplicationContext(), "تغییری لحاظ نشد!!", Toast.LENGTH_LONG).show();
+        } else if (requestCode == MEDICINE_ADD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_CANCELED) {
             Toast.makeText(getApplicationContext(), "تمامی فیلدها را پر کنید!!", Toast.LENGTH_LONG).show();
         }
     }

@@ -21,6 +21,11 @@
     <string name="show_drug">نمایش دارو</string>
     <string name="medicine_image">عکس دارو</string>
     <string name="save_changes">ثبت تغییرات</string>
+    <string name="medicine_name">اسم دارو:</string>
+    <string name="medicine_value">مقدار مصرف:</string>
+    <string name="medicine_unit">واحد مصرفی:</string>
+    <string name="medicine_how_to_use">طریقه مصرف:</string>
+    <string name="medicine_description">اطلاعات دارو:</string>
     <string-array name="unit_array">
         <item>گرم</item>
         <item>قرص</item>

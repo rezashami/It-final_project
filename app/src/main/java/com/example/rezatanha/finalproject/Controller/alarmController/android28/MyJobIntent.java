@@ -56,7 +56,7 @@ public class MyJobIntent extends JobIntentService {
 //                    if (dbAlarm != null) {
 //                        AlarmSetter alarmSetter = new AlarmSetter(getApplicationContext());
 //                        alarmSetter.showNotification(dbAlarm, getApplication());
-//                        Log.e(TAG, "set the alarm ");
+//                        Log.e(TAG, "set the ic_alarm_clock ");
 //                    } else {
 //                        Log.e(TAG, "DbAlarm is null");
 //                        Log.e(TAG, "Is extra is null " + (intent.getExtras() == null));

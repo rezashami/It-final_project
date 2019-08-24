@@ -56,7 +56,6 @@ public class AlarmListActivity extends AppCompatActivity {
 
         alarmViewModel = ViewModelProviders.of(this).get(AlarmViewModel.class);
 
-
         alarmViewModel.getAllWords().observe(this, adapter::setWords);
         alarmViewModel.getAllWords().observe(this, adapter::setWords);
 

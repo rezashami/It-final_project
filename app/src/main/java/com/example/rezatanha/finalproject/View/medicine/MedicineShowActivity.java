@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rezatanha.finalproject.Model.Medicine.Medicine;
 import com.example.rezatanha.finalproject.R;
@@ -20,9 +22,14 @@ import java.util.Objects;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.example.rezatanha.finalproject.View.medicine.MedicineListActivity.MEDICINE_UPDATE_RESULT_CODE;
+import static com.example.rezatanha.finalproject.View.medicine.MedicineListActivity.NO_CHANGE_RESULT_CODE;
+
 public class MedicineShowActivity extends AppCompatActivity {
     private final String TAG = MedicineShowActivity.class.getSimpleName();
     Medicine medicine = null;
+
+    private static final int EDIT_MEDICINE_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +50,7 @@ public class MedicineShowActivity extends AppCompatActivity {
         if (medicine == null)
             finish();
         else {
-            Log.e(TAG,medicine.getString());
+            Log.e(TAG, medicine.getString());
             name.setText(medicine.getName());
             description.setText(medicine.getDescription());
             unit.setText(medicine.getUnit());
@@ -77,9 +84,7 @@ public class MedicineShowActivity extends AppCompatActivity {
                 edit();
                 return true;
             case R.id.delete_user_edit_user:
-                Intent replyIntent = new Intent();
-                replyIntent.putExtra("Medicine", medicine);
-                setResult(MedicineListActivity.MEDICINE_DELETE_RESULT_CODE, replyIntent);
+                delete();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -87,11 +92,26 @@ public class MedicineShowActivity extends AppCompatActivity {
 
     }
 
-    // must be changed
+    private void delete() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("حذف دارو");
+        alert.setMessage("آیا دارو حذف شود؟");
+        alert.setPositiveButton("بلی", (dialog, which) -> {
+            Intent replyIntent = new Intent();
+            replyIntent.putExtra("Medicine", medicine);
+            setResult(MedicineListActivity.MEDICINE_DELETE_RESULT_CODE, replyIntent);
+            finish();
+        });
+        alert.setNegativeButton("خیر", (dialog, which) -> {
+            Toast.makeText(getApplicationContext(), "دارو حذف نشد", Toast.LENGTH_SHORT).show();
+        });
+        alert.show();
+    }
+
     private void edit() {
-        Intent replyIntent = new Intent();
-        replyIntent.putExtra("qef", medicine);
-        setResult(MedicineListActivity.MEDICINE_UPDATE_RESULT_CODE, replyIntent);
+        Intent intent = new Intent(MedicineShowActivity.this,AddMedicineActivity.class);
+        intent.putExtra("Medicine", medicine);
+        startActivityForResult(intent, EDIT_MEDICINE_REQUEST_CODE);
     }
 
     @Override
@@ -99,4 +119,17 @@ public class MedicineShowActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == EDIT_MEDICINE_REQUEST_CODE && resultCode == RESULT_OK) {
+            Intent replyIntent = new Intent();
+            Medicine _medicine = (Medicine) data.getSerializableExtra("Medicine");
+            replyIntent.putExtra("Medicine", _medicine);
+            setResult(MEDICINE_UPDATE_RESULT_CODE, replyIntent);
+            finish();
+        } else if (requestCode == EDIT_MEDICINE_REQUEST_CODE && resultCode == RESULT_CANCELED) {
+            Intent replyIntent = new Intent();
+            setResult(NO_CHANGE_RESULT_CODE, replyIntent);
+            finish();
+        }
+    }
 }

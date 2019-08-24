@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 public class AlarmSingleBackgroundService extends Service {
-    //  DBAlarm alarm;
+    //  DBAlarm ic_alarm_clock;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -15,9 +15,9 @@ public class AlarmSingleBackgroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
-//            alarm = ParcelableUtil.getFromByteArray(intent.getByteArrayExtra("Alarm"));
+//            ic_alarm_clock = ParcelableUtil.getFromByteArray(intent.getByteArrayExtra("Alarm"));
 //            AlarmSetter alarmSetter = new AlarmSetter(getApplicationContext());
-//            alarmSetter.showNotification(alarm, getApplication());
+//            alarmSetter.showNotification(ic_alarm_clock, getApplication());
 
         }
         stopSelf();

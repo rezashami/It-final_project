@@ -145,7 +145,7 @@ public class ShowAlarmLauncherActivity extends AppCompatActivity {
         Log.e("Alarm date", "hour: " + alarm.getHour() + " minute: " + alarm.getMinute());
         Log.e("Time in millis ", cal_alarm.getTime().toString());
 //        Intent intent = new Intent(ShowAlarmLauncher.this, AlarmReceiver.class);
-//        Bundle b = new Bundle(); b.putSerializable("Alarm", alarm); b.putInt("SNOOZE_COUNTER", 0);
+//        Bundle b = new Bundle(); b.putSerializable("Alarm", ic_alarm_clock); b.putInt("SNOOZE_COUNTER", 0);
 //        intent.putExtras(b);
 //        PendingIntent pendingIntent ;
 //        final int _id =(Id*7) - dayOfWeek;
@@ -176,11 +176,11 @@ public class ShowAlarmLauncherActivity extends AppCompatActivity {
         snoozeCounter++;
         int snoozeTimeInMinutes = 1;
         Log.e(TAG, "alarmSnooze() - snoozeCounter = " + snoozeCounter);
-        // setup next snooze alarm time
+        // setup next snooze ic_alarm_clock time
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MINUTE, snoozeTimeInMinutes);
         long nextSnoozeTime = c.getTimeInMillis();
-        // set new snooze alarm
+        // set new snooze ic_alarm_clock
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         Bundle b = new Bundle();
         b.putSerializable("Alarm", alarm);
