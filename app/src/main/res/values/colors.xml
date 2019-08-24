@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3aad57</color>
+    <color name="colorPrimaryDark">#2e8441</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="medicineListBG">#f0f0f0</color>
+    <color name="light_blue">#5EC2FF</color>
+</resources>

@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <string name="title_activity_main">برنامه یادآور زمان مصرف دارو</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_help">توضیحات برنامه</string>
+    <string name="title_activity_medicine_list">لیست داروها</string>
+
+
+    <!-- AlarmActivity -->
+    <string name="activity_alarm_prompt">مصرف دارو</string>
+    <string name="activity_alarm_button_off">عدم مصرف</string>
+    <string name="activity_alarm_button_snooze">تاخیر</string>
+    <!---->
+    <string name="activity_alarm_button_accept">پذیرش</string>
+    <string name="title_activity_alarm_list">لیست هشدارها</string>
+    <string name="title_activity_prescription_list">لیست نسخه ها</string>
+    <string name="show_drug">نمایش دارو</string>
+    <string name="medicine_image">عکس دارو</string>
+    <string name="save_changes">ثبت تغییرات</string>
+    <string-array name="unit_array">
+        <item>گرم</item>
+        <item>قرص</item>
+        <item>آمپول</item>
+        <item>قاشق غذاخوری</item>
+        <item>قاشق چای خوری</item>
+        <item>قاشق سوپ خوری</item>
+        <item>قطره</item>
+        <item>عدد</item>
+        <item>سایر</item>
+    </string-array>
+    <string-array name="use_array">
+        <item>خوردن</item>
+        <item>استعمال خارجی</item>
+        <item>پاف کردن</item>
+        <item>استعمال موضعی</item>
+        <item>سایر</item>
+    </string-array>
+</resources>
