@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ListConverter {
 
-    Gson gson = new Gson();
+    private Gson gson = new Gson();
 
     @TypeConverter
     public List<Date> stringToSomeObjectList(String data) {

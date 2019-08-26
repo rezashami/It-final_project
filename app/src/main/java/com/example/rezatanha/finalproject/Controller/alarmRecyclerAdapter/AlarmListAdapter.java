@@ -15,9 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.AlarmViewHolder> {
-
-
-    private Context ctxt;
     private final OnItemClickListener listener;
 
     private final LayoutInflater mInflater;
@@ -26,7 +23,6 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.Alar
     public AlarmListAdapter(Context context, OnItemClickListener listener) {
         this.listener = listener;
         mInflater = LayoutInflater.from(context);
-        ctxt = context;
     }
 
     @NonNull
@@ -40,8 +36,8 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.Alar
     public void onBindViewHolder(@NonNull AlarmViewHolder holder, int position) {
         holder.bind(alarms.get(position), listener);
         Alarm current = alarms.get(position);
-        holder.hour.setText(current.getHour() + " : " + current.getMinute());
-        //Uri temp = Uri.parse(current.getAlarmSound());
+        String message = current.getHour() + " : " + current.getMinute();
+        holder.hour.setText(message);
     }
 
     public void setWords(List<Alarm> words) {
@@ -58,7 +54,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.Alar
         void onItemClick(Alarm item);
     }
 
-    public class AlarmViewHolder extends RecyclerView.ViewHolder {
+    class AlarmViewHolder extends RecyclerView.ViewHolder {
         private final TextView hour;
 
 
@@ -67,7 +63,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.Alar
             hour = itemView.findViewById(R.id.alarm_time_view_in_row);
         }
 
-        public void bind(Alarm alarm, AlarmListAdapter.OnItemClickListener listener) {
+        void bind(Alarm alarm, AlarmListAdapter.OnItemClickListener listener) {
             itemView.setOnClickListener(v -> listener.onItemClick(alarm));
         }
     }

@@ -14,9 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MyJobIntent extends JobIntentService {
     static final int ALARM_SET_JOB_ID = 100;
-    private static final String TAG = MyJobIntent.class.getSimpleName();
     private static final String ACTION_LOAD = "action.LOAD_DATA";
-    private static final String ACTION_SINGLE = "action.SINGLE";
 
     public static void enqueueLoadWork(Context context) {
         Intent intent = new Intent(context, MyJobIntent.class);
