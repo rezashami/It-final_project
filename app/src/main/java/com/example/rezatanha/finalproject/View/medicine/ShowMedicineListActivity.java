@@ -41,34 +41,25 @@ public class ShowMedicineListActivity extends AppCompatActivity {
         // Get a new or existing ViewModel from the ViewModelProvider.
         medicineViewModel = ViewModelProviders.of(this).get(MedicineViewModel.class);
 
-        // Add an observer on the LiveData returned by getAlphabetizedWords.
-        // The onChanged() method fires when the observed data changes and the activity is
-        // in the foreground.
-        medicineViewModel.getAllWords().observe(this, words -> {
-            // Update the cached copy of the words in the adapter.
-            adapter.setWords(words);
-        });
+        medicineViewModel.getAllWords().observe(this, adapter::setWords);
         Button btn = findViewById(R.id.btn_simplify_add_drug);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                medicineList = adapter.getMedicines();
-                Medicine[] array = new Medicine[medicineList.size()];
-                medicineList.toArray(array);
-                medicineViewModel.update(array);
-                Log.e("Medicinetaf", String.valueOf(medicineList.size()));
-                Intent replyIntent = new Intent();
-                if (medicineList.size() != 0) {
-                    Bundle b = new Bundle();
-                    b.putSerializable(EXTRA_REPLY, (Serializable) medicineList);
+        btn.setOnClickListener(view -> {
+            medicineList = adapter.getMedicines();
+//            Medicine[] array = new Medicine[medicineList.size()];
+//            medicineList.toArray(array);
+           // medicineViewModel.update(array);
+            Log.e("Medicinetaf", String.valueOf(medicineList.size()));
+            Intent replyIntent = new Intent();
+            if (medicineList.size() != 0) {
+                Bundle b = new Bundle();
+                b.putSerializable(EXTRA_REPLY, (Serializable) medicineList);
 
-                    replyIntent.putExtras(b);
-                    setResult(RESULT_OK, replyIntent);
-                } else {
-                    setResult(RESULT_CANCELED, replyIntent);
-                }
-                finish();
+                replyIntent.putExtras(b);
+                setResult(RESULT_OK, replyIntent);
+            } else {
+                setResult(RESULT_CANCELED, replyIntent);
             }
+            finish();
         });
     }
 

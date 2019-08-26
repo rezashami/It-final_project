@@ -31,7 +31,7 @@ public class MedicineRepository {
         new insertAsyncTask(mWordDao).execute(word);
     }
 
-    public void update(Medicine[] medicines) {
+    public void update(Medicine medicines) {
         new updateAsyncTask(mWordDao).execute(medicines);
     }
 
@@ -61,7 +61,7 @@ public class MedicineRepository {
         }
     }
 
-    private static class updateAsyncTask extends AsyncTask<Medicine[], Void, Void> {
+    private static class updateAsyncTask extends AsyncTask<Medicine, Void, Void> {
 
         private DaoAccess mAsyncTaskDao;
 
@@ -70,9 +70,9 @@ public class MedicineRepository {
         }
 
         @Override
-        protected Void doInBackground(Medicine[]... medicines) {
+        protected Void doInBackground(Medicine... medicines) {
             for (int i = 0; i < medicines.length; i++) {
-                mAsyncTaskDao.updateMedicine(medicines[0][i]);
+                mAsyncTaskDao.updateMedicine(medicines[0]);
             }
 
             return null;

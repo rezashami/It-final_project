@@ -15,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rezatanha.finalproject.Model.Medicine.Medicine;
 import com.example.rezatanha.finalproject.R;
 
+import java.io.File;
 import java.util.Objects;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -58,8 +61,12 @@ public class MedicineShowActivity extends AppCompatActivity {
             value.setText(String.valueOf(medicine.getValueOfUse()));
             Uri imgUri = Uri.parse(medicine.getImage());
             if (imgUri != null) {
-                img.setImageURI(null);
-                img.setImageURI(imgUri);
+                Glide.with(getApplicationContext())
+                        .load(new File(imgUri.getPath())).override(250,250)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .placeholder(R.drawable.default_image)
+                        .into(img);
             }
         }
     }

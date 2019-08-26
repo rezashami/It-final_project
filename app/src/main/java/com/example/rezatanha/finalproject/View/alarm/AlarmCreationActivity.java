@@ -2,11 +2,16 @@ package com.example.rezatanha.finalproject.View.alarm;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +25,9 @@ import com.example.rezatanha.finalproject.View.medicine.ShowMedicineListActivity
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AlarmCreationActivity extends AppCompatActivity {
 
@@ -36,6 +44,12 @@ public class AlarmCreationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_creation);
+        Toolbar toolbar = findViewById(R.id.alarm_creation_toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
         sunday = findViewById(R.id.sunday_checkBox);
         monday = findViewById(R.id.monday_checkBox);
         tuesday = findViewById(R.id.tuesday_checkBox);
@@ -65,30 +79,55 @@ public class AlarmCreationActivity extends AppCompatActivity {
                 initiateCheckBoxes(alarm.getDates());
             }
         }
-        final Button button = findViewById(R.id.alarm_time_submit);
-        button.setOnClickListener((View view) -> {
-            getCheckBoxes();
-            Intent replyIntent = new Intent();
-            if (validate()) {
-                if (alarm == null) {
-                    alarm = new Alarm();
-//                    GetAlarmActivityId g = new GetAlarmActivityId()
-//                    ic_alarm_clock.setUnique(GetAlarmActivityId.getID());
-                }
-                alarm.setDates(days);
-                alarm.setHour(hour);
-                alarm.setMinute(minute);
-                alarm.setSecond(0);
-                alarm.setMedicineList(medicineList);
-                alarm.setAlarmSound(soundPath);
-                Log.e("IN creation: ", alarm.toString());
-                replyIntent.putExtra(EXTRA_REPLY, alarm);
-                setResult(RESULT_OK, replyIntent);
-            } else {
-                setResult(RESULT_CANCELED, replyIntent);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.save_button_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.save_button_in_menu) {
+            save();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    private void save() {
+        getCheckBoxes();
+        Intent replyIntent = new Intent();
+        if (validate()) {
+            if (alarm == null) {
+                alarm = new Alarm();
             }
-            finish();
-        });
+            alarm.setDates(days);
+            alarm.setHour(hour);
+            alarm.setMinute(minute);
+            alarm.setSecond(0);
+            alarm.setMedicineList(medicineList);
+            alarm.setAlarmSound(soundPath);
+            Log.e("IN creation: ", alarm.toString());
+            replyIntent.putExtra(EXTRA_REPLY, alarm);
+            setResult(RESULT_OK, replyIntent);
+        } else {
+            setResult(RESULT_CANCELED, replyIntent);
+        }
+        finish();
     }
 
     private void initiateCheckBoxes(List<Integer> input) {

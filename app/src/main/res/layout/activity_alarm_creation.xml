@@ -1,113 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="16dp"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
-    tools:context=".View.alarm.AlarmCreationActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:textDirection="rtl">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <Button
-            android:id="@+id/btn_add_alarm_song"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="انتخاب آهنگ"
-            android:onClick="onAddMusic"/>
-        <TextView
-            android:id="@+id/txt_alarm_song_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="alarm song"
-            android:visibility="gone"/>
-        <Button
-            android:id="@+id/btn_add_alarm_drugs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="انتخاب داروها"
-            android:onClick="onAddMedicine"/>
-        <TextView
-            android:id="@+id/txt_alarm_drugs_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-        <Button
-            android:id="@+id/btn_add_alarm_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="افزودن ساعت"
-            android:onClick="onTimePicking"/>
-        <TextView
-            android:id="@+id/txt_alarm_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/alarm_creation_toolbar"
+            android:layout_width="fill_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingTop="16dp"
+        android:paddingRight="24dp"
+        tools:context=".View.alarm.AlarmCreationActivity">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/tuesday_checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="سه شنبه" />
-
-            <CheckBox
-                android:id="@+id/monday_checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="دوشنبه" />
-
-            <CheckBox
-                android:id="@+id/sunday_checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="یکشنبه" />
-
-            <CheckBox
-                android:id="@+id/saturday_checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="شنبه" />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <CheckBox
-                android:id="@+id/friday_checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="جمعه" />
-
-            <CheckBox
-                android:id="@+id/thursday_checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="پنج شنبه" />
-
-            <CheckBox
-                android:id="@+id/wednesday_checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="چهارشنبه" />
-
-        </LinearLayout>
-        <Button
-            android:id="@+id/alarm_time_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ثبت کردن" />
-    </LinearLayout>
-</ScrollView>
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_add_alarm_song"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onAddMusic"
+                android:text="انتخاب آهنگ" />
+
+            <TextView
+                android:id="@+id/txt_alarm_song_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="alarm song"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_add_alarm_drugs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onAddMedicine"
+                android:text="انتخاب داروها" />
+
+            <TextView
+                android:id="@+id/txt_alarm_drugs_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_add_alarm_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTimePicking"
+                android:text="افزودن ساعت" />
+
+            <TextView
+                android:id="@+id/txt_alarm_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/saturday_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="شنبه" />
+
+                <CheckBox
+                    android:id="@+id/sunday_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="یکشنبه" />
+
+                <CheckBox
+                    android:id="@+id/monday_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="دوشنبه" />
+
+                <CheckBox
+                    android:id="@+id/tuesday_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="سه شنبه" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/wednesday_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="چهارشنبه" />
+
+                <CheckBox
+                    android:id="@+id/thursday_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="پنج شنبه" />
+
+                <CheckBox
+                    android:id="@+id/friday_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="جمعه" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

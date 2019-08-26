@@ -21,7 +21,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.Alar
     private final OnItemClickListener listener;
 
     private final LayoutInflater mInflater;
-    private List<Alarm> alarms = Collections.emptyList(); // Cached copy of words
+    private List<Alarm> alarms = Collections.emptyList();
 
     public AlarmListAdapter(Context context, OnItemClickListener listener) {
         this.listener = listener;

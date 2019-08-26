@@ -18,7 +18,7 @@ public class AlarmViewModel extends AndroidViewModel {
     public AlarmViewModel(@NonNull Application application) {
         super(application);
         mRepository = new AlarmRepository(application);
-        alarms = mRepository.getAllWords();
+        alarms = mRepository.getAllAlarms();
     }
 
     public LiveData<List<Alarm>> getAllWords() {

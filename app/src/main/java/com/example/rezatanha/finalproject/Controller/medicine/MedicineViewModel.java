@@ -29,7 +29,7 @@ public class MedicineViewModel extends AndroidViewModel {
         mRepository.insert(word);
     }
 
-    public void update(Medicine... medicines) {
+    public void update(Medicine medicines) {
         mRepository.update(medicines);
     }
 

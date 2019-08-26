@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -45,6 +46,7 @@ public class MedicineListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         RecyclerView recyclerView = findViewById(R.id.medicine_recycler);
         adapter = new MedicineListAdapter(this, item -> {
             Intent myIntent = new Intent(getApplicationContext(), MedicineShowActivity.class);
@@ -102,7 +104,7 @@ public class MedicineListActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) search.getActionView();
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setQueryHint("جست و جو کاربر");
+        searchView.setQueryHint("جست و جو دارو");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -130,6 +132,7 @@ public class MedicineListActivity extends AppCompatActivity {
             Medicine medicine = (Medicine) data.getSerializableExtra(AddMedicineActivity.EXTRA_REPLY);
             medicineViewModel.insert(medicine);
         } else if (requestCode == MEDICINE_SHOW_ACTIVITY_REQUEST_CODE && resultCode == MEDICINE_UPDATE_RESULT_CODE) {
+            Log.e("MedicineList","Update");
             Medicine medicine = (Medicine) data.getSerializableExtra(AddMedicineActivity.EXTRA_REPLY);
             medicineViewModel.update(medicine);
         } else if (requestCode == MEDICINE_SHOW_ACTIVITY_REQUEST_CODE && resultCode == MEDICINE_DELETE_RESULT_CODE) {

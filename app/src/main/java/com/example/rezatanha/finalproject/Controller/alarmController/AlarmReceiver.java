@@ -3,10 +3,9 @@ package com.example.rezatanha.finalproject.Controller.alarmController;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
-import com.example.rezatanha.finalproject.Controller.alarmController.android28.MyJobIntent;
+import com.example.rezatanha.finalproject.View.alarm.ShowAlarmLauncherActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
     Context myContext;
@@ -17,23 +16,16 @@ public class AlarmReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action != null && action.equals("MY.ACTION.ALARM")) {
             Bundle extras = intent.getExtras();
-            Intent myIntent = new Intent(context, AlarmSingleBackgroundService.class);
+            Intent newIntent = new Intent("android.intent.action.MAIN");
+            newIntent.setClass(context,ShowAlarmLauncherActivity.class);
             if (extras != null) {
-                myIntent.putExtras(extras);
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                MyJobIntent.enqueueSingleWork(context, extras);
-            } else {
-                context.startService(myIntent);
+                newIntent.putExtras(extras);
+                newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newIntent);
             }
         }
         if (action != null && action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-            Intent myIntent = new Intent(context, AlarmGroupBackgroundService.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                MyJobIntent.enqueueLoadWork(context);
-            } else {
-                context.startService(myIntent);
-            }
+            MyJobIntent.enqueueLoadWork(context);
         }
     }
 }

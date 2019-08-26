@@ -24,6 +24,9 @@ public interface DaoAccess {
     @Query("SELECT * FROM alarm")
     LiveData<List<Alarm>> getAllAlarms();
 
+    @Query("SELECT * FROM alarm")
+    List<Alarm> getListOfAlarms();
+
     @Query("SELECT * FROM report")
     LiveData<List<Report>> getAllReports();
 

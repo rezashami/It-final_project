@@ -20,42 +20,101 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.alarm.AlarmCreationActivity" />
-        <activity android:name=".View.alarm.AlarmListActivity" />
-        <activity android:name=".View.alarm.ShowOneAlarmActivity" />
-        <activity android:name=".View.alarm.TimePickingActivity" />
-        <activity android:name=".View.alarm.ShowAlarmLauncherActivity" />
-        <activity android:name=".View.medicine.ShowMedicineListActivity" />
+
+        <activity
+            android:name=".View.alarm.AlarmCreationActivity"
+            android:label="اضافه کردن هشدار"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.alarm.AlarmListActivity"
+            android:label="مدیریت هشدارها"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.alarm.ShowOneAlarmActivity"
+            android:label="نمایش اطلاعات هشدار"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.alarm.TimePickingActivity"
+            android:label="انتخاب ساعت هشدار"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.alarm.ShowAlarmLauncherActivity"
+            android:label="نمایش هشدار"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.medicine.ShowMedicineListActivity"
+            android:label="انتخاب دارو برای هشدار"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".View.medicine.MedicineListActivity"
             android:label="مدیریت داروها"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".View.medicine.AddMedicineActivity"
+        <activity
+            android:name=".View.medicine.AddMedicineActivity"
             android:label="افزودن دارو"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".View.medicine.MedicineShowActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.medicine.MedicineShowActivity"
             android:label="مشاهده دارو"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".View.prescription.PrescriptionListActivity" />
-        <activity android:name=".View.prescription.PrescriptionShowActivity" />
-        <activity android:name=".View.report.ReportListActivity" />
-        <activity android:name=".View.report.ReportShowActivity" />
-        <activity android:name=".View.help.HelpActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.prescription.PrescriptionListActivity"
+            android:label="مدیریت نسخه‌ها"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.prescription.PrescriptionShowActivity"
+            android:label="مشاهده نسخه"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.report.ReportListActivity"
+            android:label="مدیریت گزارشات"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".View.report.ReportShowActivity"
+            android:label="مشاهده گزارش"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="android.app.searchable"
             android:resource="@xml/searchable" />
+
+        <receiver
+            android:name=".Controller.alarmController.AlarmReceiver"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="MY.ACTION.ALARM" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".Controller.alarmController.MyJobIntent"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>

@@ -23,8 +23,12 @@ public class AlarmRepository {
         alarms = AlarmDao.getAllAlarms();
     }
 
-    LiveData<List<Alarm>> getAllWords() {
+    LiveData<List<Alarm>> getAllAlarms() {
         return alarms;
+    }
+
+    public List<Alarm> getListOfAlarms() throws ExecutionException, InterruptedException {
+      return new getListClass(AlarmDao).execute().get();
     }
 
     int insert(Alarm word) {
@@ -60,6 +64,21 @@ public class AlarmRepository {
         protected Long doInBackground(final Alarm... params) {
             return mAsyncTaskDao.insertAlarm(params[0]);
 
+        }
+    }
+
+
+    private static class getListClass extends AsyncTask<Void, Void, List<Alarm>> {
+
+        private DaoAccess mAsyncTaskDao;
+
+        getListClass(DaoAccess dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected List<Alarm> doInBackground(Void... voids) {
+            return mAsyncTaskDao.getListOfAlarms();
         }
     }
 
