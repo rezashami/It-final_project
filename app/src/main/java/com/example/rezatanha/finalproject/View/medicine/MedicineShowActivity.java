@@ -59,15 +59,13 @@ public class MedicineShowActivity extends AppCompatActivity {
             unit.setText(medicine.getUnit());
             howUse.setText(medicine.getHowUse());
             value.setText(String.valueOf(medicine.getValueOfUse()));
-            Uri imgUri = Uri.parse(medicine.getImage());
-            if (imgUri != null) {
-                Glide.with(getApplicationContext())
-                        .load(new File(imgUri.getPath())).override(250,250)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(true)
-                        .placeholder(R.drawable.default_image)
-                        .into(img);
-            }
+            Glide.with(getApplicationContext())
+                    .load(Uri.fromFile(new File(medicine.getImage()))).override(250, 250)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .placeholder(R.drawable.default_image)
+                    .into(img);
+
         }
     }
 
@@ -116,7 +114,7 @@ public class MedicineShowActivity extends AppCompatActivity {
     }
 
     private void edit() {
-        Intent intent = new Intent(MedicineShowActivity.this,AddMedicineActivity.class);
+        Intent intent = new Intent(MedicineShowActivity.this, AddMedicineActivity.class);
         intent.putExtra("Medicine", medicine);
         startActivityForResult(intent, EDIT_MEDICINE_REQUEST_CODE);
     }

@@ -14,6 +14,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,6 +42,7 @@ public class AddMedicineActivity extends AppCompatActivity {
     public static final String EXTRA_REPLY = "Medicine";
     public static final int CAMERA_REQUEST_CODE = 1;
     public static final int GALLERY_REQUEST_CODE = 2;
+    private static final String TAG = AddMedicineActivity.class.getSimpleName();
     private EditText name;
     private EditText description;
     private Spinner howToUse;
@@ -75,7 +77,7 @@ public class AddMedicineActivity extends AppCompatActivity {
             }
             imageView.setVisibility(View.VISIBLE);
             Glide.with(getApplicationContext())
-                    .load(new File(Uri.parse(medicine.getImage()).getPath())).override(250,250)
+                    .load(new File(Uri.parse(medicine.getImage()).getPath())).override(250, 250)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .placeholder(R.drawable.default_image)
@@ -102,7 +104,12 @@ public class AddMedicineActivity extends AppCompatActivity {
     }
 
     public void onImageAddFromGallery(View view) {
-        startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY_REQUEST_CODE);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        //startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY_REQUEST_CODE);
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
     public void onImageAddFromCamera(View view) {
@@ -123,23 +130,21 @@ public class AddMedicineActivity extends AppCompatActivity {
             imageView.setImageURI(Uri.parse(img));
         } else if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
+            Log.e(TAG, "URI value: " + selectedImage);
             if (selectedImage != null) {
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                // Get the cursor
-                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                // Move to first row
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    //Get the column index of MediaStore.Images.Media.DATA
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    //Gets the String value in the column
-                    String imgDecodableString = cursor.getString(columnIndex);
-                    img = imgDecodableString;
-                    cursor.close();
-                    // Set the Image in ImageView after decoding the String
-                    imageView.setVisibility(View.VISIBLE);
-                    imageView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+                img = getRealPathFromURI(selectedImage);
+                imageView.setVisibility(View.VISIBLE);
+                if (!img.equals(""))
+                {
+                    File file = new File(img);
+                    Uri imageUri = Uri.fromFile(file);
+                    Glide.with(this)
+                            .load(imageUri)
+                            .into(imageView);
                 }
+                    //imageView.setImageBitmap(BitmapFactory.decodeFile(img));
+                else
+                    imageView.setImageResource(R.drawable.default_image);
             }
 
         }
@@ -186,8 +191,7 @@ public class AddMedicineActivity extends AppCompatActivity {
             med.setUnit(unit.getSelectedItem().toString());
             med.setValueOfUse(Float.parseFloat(value.getText().toString()));
             med.setImage(img);
-            if (medicine != null)
-            {
+            if (medicine != null) {
                 med.setId(medicine.getId());
             }
             replyIntent.putExtra(EXTRA_REPLY, med);
@@ -197,90 +201,33 @@ public class AddMedicineActivity extends AppCompatActivity {
     }
 
     private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        //This is the directory in which the file will be created. This is the default location of Camera photos
         File storageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "Medicines");
         storageDir.mkdirs();
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
+                imageFileName,
+                ".jpg",
+                storageDir
         );
-        // Save a file: path for using again
-        img = "file://" + image.getAbsolutePath();
+        img =  image.getAbsolutePath();
         return image;
     }
 
-//    @SuppressLint("StaticFieldLeak")
-//    public class LoadImage extends AsyncTask<Void, Void, Void> {
-//
-//        final Uri selectedImage;
-//        final Context context;
-//        final ImageView imageView;
-//        Bitmap bitmap;
-//        byte[] imageFile;
-//
-//        LoadImage(Uri selectedImage, Context context, ImageView imageView) {
-//            this.selectedImage = selectedImage;
-//            this.context = context;
-//            this.imageView = imageView;
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            runOnUiThread(() -> Glide.with(context).load(R.raw.loading).into(imageView));
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//
-//            try {
-//                //Bitmap bitmapImage = MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImage);
-////                int nh = (int) ( bitmapImage.getHeight() * (128.0 / bitmapImage.getWidth()) );
-////                bitmap = Bitmap.createScaledBitmap(bitmapImage, 128, nh, true);
-//                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImage);
-//                ByteArrayOutputStream blob = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.PNG, 0 , blob);
-//                imageFile = blob.toByteArray();
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            imageView.setVisibility(View.VISIBLE);
-//            Glide.with(getApplicationContext())
-//                    .load(bitmap).override(250,250)
-//                    .into(imageView);
-//            super.onPostExecute(aVoid);
-//        }
-//
-//        private void savePhoto(){
-//            OutputStream out;
-//            String root = Environment.getExternalStorageDirectory().getAbsolutePath()+"/";
-//            File createDir = new File(root+"ReminderPhotos"+File.separator);
-//            if(!createDir.exists()) {
-//                createDir.mkdir();
-//            }
-//            File file = new File(root + "ReminderPhotos" + File.separator +"Name of File");
-//            try {
-//                file.createNewFile();
-//                out = new FileOutputStream(file);
-//                out.write(imageFile);
-//                out.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//
-//        }
-//    }
+
+    private String getRealPathFromURI(Uri contentUri) {
+        String result;
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, filePathColumn, null, null, null);
+        if (cursor == null) {
+            result = contentUri.getPath();
+        } else {
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            result = cursor.getString(columnIndex);
+            cursor.close();
+        }
+        return result;
+    }
 }

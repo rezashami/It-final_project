@@ -20,6 +20,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.rezatanha.finalproject.Controller.alarmController.AlarmReceiver;
 import com.example.rezatanha.finalproject.Controller.db.DatabaseHelper;
+import com.example.rezatanha.finalproject.Controller.parcelableUtil.ParcelableUtil;
 import com.example.rezatanha.finalproject.Model.Alarm.Alarm;
 import com.example.rezatanha.finalproject.Model.Medicine.Medicine;
 import com.example.rezatanha.finalproject.Model.Report.Report;
@@ -59,7 +60,7 @@ public class ShowAlarmLauncherActivity extends AppCompatActivity {
         Bundle b = this.getIntent().getExtras();
         if (b != null) {
             snoozeCounter = b.getInt("SNOOZE_COUNTER");
-            alarm = (Alarm) b.getSerializable("Alarm");
+            alarm = ParcelableUtil.getFromByteArray( this.getIntent().getByteArrayExtra("Alarm"));
             Log.e("Alarm", "Time: " + alarm.getHour() + " : " + alarm.getMinute() + " Snooze counter: " + snoozeCounter);
         } else {
             finish();
