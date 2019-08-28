@@ -26,6 +26,7 @@ import com.example.rezatanha.finalproject.Model.Medicine.Medicine;
 import com.example.rezatanha.finalproject.Model.Report.Report;
 import com.example.rezatanha.finalproject.R;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +73,7 @@ public class ShowAlarmLauncherActivity extends AppCompatActivity {
             TextSliderView textSliderView = new TextSliderView(this);
             textSliderView
                     .description(description)
-                    .image(allMedicine.get(i).getImage())
+                    .image(new File(allMedicine.get(i).getImage()))
                     .setScaleType(BaseSliderView.ScaleType.Fit);
 
             mDemoSlider.addSlider(textSliderView);

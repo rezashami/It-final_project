@@ -59,12 +59,20 @@ public class MedicineShowActivity extends AppCompatActivity {
             unit.setText(medicine.getUnit());
             howUse.setText(medicine.getHowUse());
             value.setText(String.valueOf(medicine.getValueOfUse()));
-            Glide.with(getApplicationContext())
-                    .load(Uri.fromFile(new File(medicine.getImage()))).override(250, 250)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .placeholder(R.drawable.default_image)
-                    .into(img);
+            if (medicine.getImage() != null) {
+                Glide.with(getApplicationContext())
+                        .load(Uri.fromFile(new File(medicine.getImage()))).override(250, 250)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .placeholder(R.drawable.default_image)
+                        .into(img);
+            }else{
+                Glide.with(getApplicationContext())
+                        .load(R.drawable.default_image).override(250, 250)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .into(img);
+            }
 
         }
     }

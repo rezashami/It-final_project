@@ -1,10 +1,8 @@
 package com.example.rezatanha.finalproject.Controller.medicineRecyclerAdapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,22 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.example.rezatanha.finalproject.Model.Medicine.Medicine;
 import com.example.rezatanha.finalproject.R;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class MedicineListAdapter extends RecyclerView.Adapter<MedicineListAdapter.WordViewHolder> {
 
     private static final String TAG = MedicineListAdapter.class.getSimpleName();
+
     class WordViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
         private final ImageView img;
@@ -68,14 +62,23 @@ public class MedicineListAdapter extends RecyclerView.Adapter<MedicineListAdapte
     public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
         holder.bind(mWords.get(position), listener);
         Medicine current = mWords.get(position);
-        Log.e(TAG,current.getString());
+        Log.e(TAG, current.getString());
         holder.name.setText(current.getName());
-        Glide.with(ctxt)
-                .load(Uri.fromFile(new File(current.getImage())))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .placeholder(R.drawable.default_image_64)
-                .into(holder.img);
+        if (current.getImage() != null) {
+            Glide.with(ctxt)
+                    .load(Uri.fromFile(new File(current.getImage())))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .placeholder(R.drawable.default_image_64)
+                    .into(holder.img);
+        } else {
+            Glide.with(ctxt)
+                    .load(R.drawable.default_image_64)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(holder.img);
+        }
+
     }
 
     public void setMedicines(List<Medicine> medicines) {
