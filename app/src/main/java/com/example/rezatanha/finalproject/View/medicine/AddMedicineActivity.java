@@ -52,6 +52,7 @@ public class AddMedicineActivity extends AppCompatActivity {
     private String img;
     Medicine medicine = null;
     ImageView imageView;
+    boolean isUsed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class AddMedicineActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         img = null;
+        isUsed = false;
         name = findViewById(R.id.drug_input_name);
         description = findViewById(R.id.drug_input_description);
         howToUse = findViewById(R.id.how_to_use);
@@ -89,6 +91,7 @@ public class AddMedicineActivity extends AppCompatActivity {
             description.setText(medicine.getDescription());
             value.setText(String.valueOf(medicine.getValueOfUse()));
             img = medicine.getImage();
+            isUsed =medicine.getUsed();
         }
         ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(
                 this, R.array.unit_array, android.R.layout.simple_spinner_item);
@@ -133,7 +136,7 @@ public class AddMedicineActivity extends AppCompatActivity {
     private void removeImage(){
         img= null;
         imageView.setVisibility(View.GONE);
-        Toast.makeText(getApplicationContext(), "عکس پاک شد!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddMedicineActivity.this, "عکس پاک شد!", Toast.LENGTH_SHORT).show();
     }
     public void onImageAddFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -212,7 +215,6 @@ public class AddMedicineActivity extends AppCompatActivity {
         if (!validate()) {
             setResult(RESULT_CANCELED, replyIntent);
         } else {
-
             Medicine med = new Medicine();
             med.setName(name.getText().toString());
             med.setDescription(description.getText().toString());
@@ -220,6 +222,7 @@ public class AddMedicineActivity extends AppCompatActivity {
             med.setUnit(unit.getSelectedItem().toString());
             med.setValueOfUse(Float.parseFloat(value.getText().toString()));
             med.setImage(img);
+            med.setUsed(isUsed);
             if (medicine != null) {
                 med.setId(medicine.getId());
             }
@@ -259,4 +262,5 @@ public class AddMedicineActivity extends AppCompatActivity {
         }
         return result;
     }
+
 }

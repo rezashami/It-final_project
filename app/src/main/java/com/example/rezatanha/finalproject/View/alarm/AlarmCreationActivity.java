@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -40,6 +39,7 @@ public class AlarmCreationActivity extends AppCompatActivity {
     List<Integer> days = null;
     CheckBox sunday, monday, tuesday, wednesday, thursday, friday, saturday;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,6 +224,7 @@ public class AlarmCreationActivity extends AppCompatActivity {
                 txt.setVisibility(View.VISIBLE);
                 txt.setText("");
                 for (int i = 0; i < medicineList.size(); i++) {
+                    medicineList.get(i).setUsed(true);
                     txt.setText(txt.getText() + "\n" + medicineList.get(i).getName());
                 }
             }
@@ -244,4 +245,5 @@ public class AlarmCreationActivity extends AppCompatActivity {
             txt.setText(hour + " : " + minute);
         }
     }
+
 }

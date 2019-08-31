@@ -1,6 +1,7 @@
 package com.example.rezatanha.finalproject.View.prescription;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,8 @@ import com.example.rezatanha.finalproject.Controller.prescription.PrescriptionVi
 import com.example.rezatanha.finalproject.Controller.prescriptionRecyclerAdapter.PrescriptionListAdapter;
 import com.example.rezatanha.finalproject.Model.Prescription.Prescription;
 import com.example.rezatanha.finalproject.R;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PrescriptionListActivity extends AppCompatActivity {
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
@@ -54,5 +57,8 @@ public class PrescriptionListActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }

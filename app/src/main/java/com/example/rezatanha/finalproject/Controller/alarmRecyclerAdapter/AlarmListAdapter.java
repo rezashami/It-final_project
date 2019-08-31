@@ -36,7 +36,9 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.Alar
     public void onBindViewHolder(@NonNull AlarmViewHolder holder, int position) {
         holder.bind(alarms.get(position), listener);
         Alarm current = alarms.get(position);
-        String message = current.getHour() + " : " + current.getMinute();
+        String hour = current.getHour()<10? "0"+current.getHour(): String.valueOf(current.getHour());
+        String minute = current.getMinute()<10? "0"+current.getMinute(): String.valueOf(current.getMinute());
+        String message = hour+ " : " + minute;
         holder.hour.setText(message);
     }
 

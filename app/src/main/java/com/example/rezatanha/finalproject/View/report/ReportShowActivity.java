@@ -1,10 +1,12 @@
 package com.example.rezatanha.finalproject.View.report;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +14,10 @@ import android.widget.TextView;
 import com.example.rezatanha.finalproject.Model.Report.Report;
 import com.example.rezatanha.finalproject.R;
 
+import java.util.Objects;
+
 import saman.zamani.persiandate.PersianDate;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ReportShowActivity extends AppCompatActivity {
     public static final int REPORT_DELETE_RESULT_CODE = 32;
@@ -24,6 +29,10 @@ public class ReportShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_show);
+        Toolbar toolbar = findViewById(R.id.report_show_toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         txt_header = findViewById(R.id.report_header_show);
         txt_body = findViewById(R.id.report_body_show);
         txt_date = findViewById(R.id.report_date_show);
@@ -72,5 +81,14 @@ public class ReportShowActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

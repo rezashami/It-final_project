@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.rezatanha.finalproject.Controller.prefrence.PreferenceManager;
 import com.example.rezatanha.finalproject.View.alarm.AlarmListActivity;
 import com.example.rezatanha.finalproject.View.medicine.MedicineListActivity;
 import com.example.rezatanha.finalproject.View.prescription.PrescriptionListActivity;
@@ -21,8 +20,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_ALL = 1;
-    PreferenceManager preferenceManager;
-//    private String TAG = MainActivity.class.getSimpleName();
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
@@ -79,13 +76,6 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(getApplicationContext(), PrescriptionListActivity.class);
             startActivity(myIntent);
         });
-        preferenceManager = new PreferenceManager(getApplicationContext());
-        if (preferenceManager.inc() == -1) {
-            preferenceManager.setInc(2);
-        }
-        if (preferenceManager.getUserCode() == -1) {
-            preferenceManager.setUserCode(1);
-        }
         findViewById(R.id.progressBar).setVisibility(View.GONE);
         findViewById(R.id.content_main).setVisibility(View.VISIBLE);
 

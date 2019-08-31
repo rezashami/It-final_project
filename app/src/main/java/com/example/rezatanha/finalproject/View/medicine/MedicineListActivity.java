@@ -139,9 +139,9 @@ public class MedicineListActivity extends AppCompatActivity {
             Medicine medicine = (Medicine) data.getSerializableExtra(AddMedicineActivity.EXTRA_REPLY);
             medicineViewModel.remove(medicine);
         } else if (requestCode == MEDICINE_SHOW_ACTIVITY_REQUEST_CODE && resultCode == NO_CHANGE_RESULT_CODE) {
-            Toast.makeText(getApplicationContext(), "تغییری لحاظ نشد!!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MedicineListActivity.this, "تغییری لحاظ نشد!!", Toast.LENGTH_LONG).show();
         } else if (requestCode == MEDICINE_ADD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_CANCELED) {
-            Toast.makeText(getApplicationContext(), "تمامی فیلدها را پر کنید!!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MedicineListActivity.this, "تمامی فیلدها را پر کنید!!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -154,4 +154,6 @@ public class MedicineListActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+
 }

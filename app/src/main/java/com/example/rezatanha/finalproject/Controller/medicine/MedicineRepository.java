@@ -17,7 +17,7 @@ public class MedicineRepository {
     private LiveData<List<Medicine>> mAllWords;
 
 
-    MedicineRepository(Application application) {
+    public MedicineRepository(Application application) {
         DatabaseHelper db = DatabaseHelper.getDatabase(application);
         mWordDao = db.daoAccess();
         mAllWords = mWordDao.getAllMedicine();
@@ -33,6 +33,10 @@ public class MedicineRepository {
 
     public void update(Medicine medicines) {
         new updateAsyncTask(mWordDao).execute(medicines);
+    }
+
+    public void updateMany(List<Medicine> medicines) {
+        new updateManyAsyncTask(mWordDao,medicines).execute();
     }
 
     public void remove(Medicine medicine) {
@@ -75,6 +79,25 @@ public class MedicineRepository {
                 mAsyncTaskDao.updateMedicine(medicines[0]);
             }
 
+            return null;
+        }
+    }
+
+    private static class updateManyAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private DaoAccess mAsyncTaskDao;
+        private List<Medicine> medicines;
+        updateManyAsyncTask(DaoAccess dao,List<Medicine> list) {
+            this.mAsyncTaskDao = dao;
+            this.medicines = list;
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            for (int i = 0; i < medicines.size(); i++) {
+                mAsyncTaskDao.updateMedicine(medicines.get(i));
+            }
             return null;
         }
     }

@@ -66,7 +66,7 @@ public class MedicineShowActivity extends AppCompatActivity {
                         .skipMemoryCache(true)
                         .placeholder(R.drawable.default_image)
                         .into(img);
-            }else{
+            } else {
                 Glide.with(getApplicationContext())
                         .load(R.drawable.default_image).override(250, 250)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -108,16 +108,18 @@ public class MedicineShowActivity extends AppCompatActivity {
     private void delete() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("حذف دارو");
-        alert.setMessage("آیا دارو حذف شود؟");
+        if (medicine.getUsed()) {
+            alert.setMessage("دارو در حال مصرف می‌باشد، آیا مطمئن هستید؟");
+        } else {
+            alert.setMessage("آیا دارو حذف شود؟");
+        }
         alert.setPositiveButton("بلی", (dialog, which) -> {
             Intent replyIntent = new Intent();
             replyIntent.putExtra("Medicine", medicine);
             setResult(MedicineListActivity.MEDICINE_DELETE_RESULT_CODE, replyIntent);
             finish();
         });
-        alert.setNegativeButton("خیر", (dialog, which) -> {
-            Toast.makeText(getApplicationContext(), "دارو حذف نشد", Toast.LENGTH_SHORT).show();
-        });
+        alert.setNegativeButton("خیر", (dialog, which) -> Toast.makeText(MedicineShowActivity.this, "دارو حذف نشد", Toast.LENGTH_SHORT).show());
         alert.show();
     }
 
