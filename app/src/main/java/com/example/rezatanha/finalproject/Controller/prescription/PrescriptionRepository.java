@@ -11,24 +11,29 @@ import com.example.rezatanha.finalproject.Model.Prescription.Prescription;
 import java.util.List;
 
 public class PrescriptionRepository {
-    private DaoAccess mWordDao;
+    private DaoAccess daoAccess;
     private LiveData<List<Prescription>> allPrescriptions;
 
 
     PrescriptionRepository(Application application) {
         DatabaseHelper db = DatabaseHelper.getDatabase(application);
-        mWordDao = db.daoAccess();
-        allPrescriptions = mWordDao.getAllPrescriptions();
+        daoAccess = db.daoAccess();
+        allPrescriptions = daoAccess.getAllPrescriptions();
     }
-
-    // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
     LiveData<List<Prescription>> getAllWords() {
         return allPrescriptions;
     }
 
     void insert(Prescription prescription) {
-        new insertAsyncTask(mWordDao).execute(prescription);
+        new insertAsyncTask(daoAccess).execute(prescription);
+    }
+
+    void update(Prescription prescription) {
+        new updateAsyncTask(daoAccess).execute(prescription);
+    }
+
+    void remove(Prescription prescription) {
+        new deleteAsyncTask(daoAccess).execute(prescription);
     }
 
     private static class insertAsyncTask extends AsyncTask<Prescription, Void, Void> {
@@ -42,6 +47,34 @@ public class PrescriptionRepository {
         @Override
         protected Void doInBackground(final Prescription... params) {
             mAsyncTaskDao.insertPrescription(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateAsyncTask extends AsyncTask<Prescription, Void, Void> {
+        private DaoAccess mAsyncTaskDao;
+
+        updateAsyncTask(DaoAccess alarmDao) {
+            mAsyncTaskDao = alarmDao;
+        }
+
+        @Override
+        protected Void doInBackground(Prescription... params) {
+            mAsyncTaskDao.updatePrescription(params[0]);
+            return null;
+        }
+    }
+
+    private static class deleteAsyncTask extends AsyncTask<Prescription, Void, Void> {
+        private DaoAccess mAsyncTaskDao;
+
+        deleteAsyncTask(DaoAccess alarmDao) {
+            mAsyncTaskDao = alarmDao;
+        }
+
+        @Override
+        protected Void doInBackground(Prescription... params) {
+            mAsyncTaskDao.removePrescription(params[0]);
             return null;
         }
     }

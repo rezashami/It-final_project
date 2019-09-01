@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.prescription.listShow.PrescriptionList"
+    tools:context=".View.prescription.PrescriptionListActivity"
     tools:showIn="@layout/activity_prescription_list">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/prescription_content_recycler"
@@ -13,5 +13,5 @@
         android:layout_height="match_parent"
         android:background="@color/medicineListBG"
         android:visibility="visible"
-        tools:listitem="@layout/recycler_row_report" />
+        tools:listitem="@layout/recycler_row_prescription" />
 </android.support.constraint.ConstraintLayout>

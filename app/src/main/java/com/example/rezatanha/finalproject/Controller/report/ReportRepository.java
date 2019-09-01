@@ -54,7 +54,7 @@ public class ReportRepository {
     private static class updateAsyncTask extends AsyncTask<Report, Void, Void> {
         private DaoAccess mAsyncTaskDao;
 
-        public updateAsyncTask(DaoAccess alarmDao) {
+        updateAsyncTask(DaoAccess alarmDao) {
             mAsyncTaskDao = alarmDao;
         }
 
@@ -68,7 +68,7 @@ public class ReportRepository {
     private static class deleteAsyncTask extends AsyncTask<Report, Void, Void> {
         private DaoAccess mAsyncTaskDao;
 
-        public deleteAsyncTask(DaoAccess alarmDao) {
+        deleteAsyncTask(DaoAccess alarmDao) {
             mAsyncTaskDao = alarmDao;
         }
 

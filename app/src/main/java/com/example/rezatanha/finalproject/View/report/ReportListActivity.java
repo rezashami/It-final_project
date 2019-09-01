@@ -42,13 +42,8 @@ public class ReportListActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // Get a new or existing ViewModel from the ViewModelProvider.
         reportViewModel = ViewModelProviders.of(this).get(ReportViewModel.class);
-
-
-        // Update the cached copy of the words in the adapter.
         reportViewModel.getAllReports().observe(this, adapter::setReports);
-        reportViewModel.getAllReports().observe(this, _reports -> adapter.setReports(_reports));
 
     }
 

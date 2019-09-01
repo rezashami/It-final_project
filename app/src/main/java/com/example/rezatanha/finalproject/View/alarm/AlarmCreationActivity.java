@@ -121,7 +121,6 @@ public class AlarmCreationActivity extends AppCompatActivity {
             alarm.setSecond(0);
             alarm.setMedicineList(medicineList);
             alarm.setAlarmSound(soundPath);
-            Log.e("IN creation: ", alarm.toString());
             replyIntent.putExtra(EXTRA_REPLY, alarm);
             setResult(RESULT_OK, replyIntent);
         } else {

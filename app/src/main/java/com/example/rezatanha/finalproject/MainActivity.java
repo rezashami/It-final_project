@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.rezatanha.finalproject.View.alarm.AlarmListActivity;
 import com.example.rezatanha.finalproject.View.medicine.MedicineListActivity;
@@ -44,11 +46,10 @@ public class MainActivity extends AppCompatActivity {
     private void askForPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             String[] PERMISSIONS = {
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     android.Manifest.permission.DISABLE_KEYGUARD,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     android.Manifest.permission.WAKE_LOCK,
                     android.Manifest.permission.RECEIVE_BOOT_COMPLETED,
-                    android.Manifest.permission.MANAGE_DOCUMENTS
             };
             if (!hasPermissions(getApplicationContext(), PERMISSIONS)) {
                 ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_ALL);
@@ -76,9 +77,6 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(getApplicationContext(), PrescriptionListActivity.class);
             startActivity(myIntent);
         });
-        findViewById(R.id.progressBar).setVisibility(View.GONE);
-        findViewById(R.id.content_main).setVisibility(View.VISIBLE);
-
     }
 
     @Override
@@ -86,4 +84,31 @@ public class MainActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_ALL) {
+            boolean flag = true;
+            Log.e("MainActivity",String.format("length %s",grantResults.length));
+            if (grantResults.length > 0) {
+                for (int i=0;i<grantResults.length;i++ ) {
+                    int item = grantResults[i];
+                    Log.e("MainActivity",String.format("item %s, PKG: %s",item , PackageManager.PERMISSION_GRANTED));
+                    if (item != PackageManager.PERMISSION_GRANTED) {
+                        flag = false;
+                        break;
+                    }
+                }
+                Log.e("MainActivity",String.format("flag %s",flag));
+                if (flag) {
+                    start();
+                } else {
+                    Toast.makeText(MainActivity.this, "دسترسی داده نشد.", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            } else {
+                Toast.makeText(MainActivity.this, "دسترسی داده نشد.", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+    }
 }

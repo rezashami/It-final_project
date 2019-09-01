@@ -66,6 +66,10 @@ public interface DaoAccess {
 
     @Delete
     void removeReport(Report report);
+    @Update
+    void updatePrescription(Prescription prescription);
 
+    @Delete
+    void removePrescription(Prescription prescription);
 
 }

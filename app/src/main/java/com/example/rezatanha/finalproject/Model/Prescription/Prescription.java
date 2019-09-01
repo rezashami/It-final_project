@@ -11,6 +11,7 @@ import com.example.rezatanha.finalproject.Controller.db.ListMedicineConverter;
 import com.example.rezatanha.finalproject.Model.Medicine.Medicine;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity(tableName = "prescription")
@@ -23,7 +24,7 @@ public class Prescription implements Serializable {
     private String description;
     private List<Medicine> medicine;
     private String name;
-
+    private Date date;
 
     public Prescription() {
     }
@@ -59,5 +60,13 @@ public class Prescription implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

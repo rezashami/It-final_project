@@ -109,7 +109,7 @@ public class ShowOneAlarmActivity extends AppCompatActivity {
 
     private void delete() {
         AlertDialog.Builder alert = new AlertDialog.Builder(ShowOneAlarmActivity.this);
-        alert.setTitle("حذف اعلان");
+        alert.setTitle("حذف هشدار");
         alert.setMessage("آیا مطمئن هستید؟");
         alert.setPositiveButton("بلی", (dialog, which) -> {
             Intent replyIntent = new Intent();

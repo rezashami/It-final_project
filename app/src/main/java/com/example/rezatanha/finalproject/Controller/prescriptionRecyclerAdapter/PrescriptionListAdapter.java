@@ -20,7 +20,7 @@ public class PrescriptionListAdapter extends RecyclerView.Adapter<PrescriptionLi
     private final OnItemClickListener listener;
 
     private final LayoutInflater mInflater;
-    private List<Prescription> prescriptions = Collections.emptyList(); // Cached copy of words
+    private List<Prescription> prescriptions = Collections.emptyList();
 
     public PrescriptionListAdapter(Context context, OnItemClickListener listener) {
         this.listener = listener;
@@ -38,7 +38,7 @@ public class PrescriptionListAdapter extends RecyclerView.Adapter<PrescriptionLi
     public void onBindViewHolder(@NonNull PrescriptionViewHolder holder, int position) {
         holder.bind(prescriptions.get(position), listener);
         Prescription current = prescriptions.get(position);
-        holder.name.setText(current.getName());
+        holder.textView.setText(current.getName());
     }
 
     @Override
@@ -46,8 +46,8 @@ public class PrescriptionListAdapter extends RecyclerView.Adapter<PrescriptionLi
         return prescriptions.size();
     }
 
-    public void setWords(List<Prescription> words) {
-        prescriptions = words;
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
         notifyDataSetChanged();
     }
 
@@ -55,16 +55,16 @@ public class PrescriptionListAdapter extends RecyclerView.Adapter<PrescriptionLi
         void onItemClick(Prescription item);
     }
 
-    public class PrescriptionViewHolder extends RecyclerView.ViewHolder {
-        private final TextView name;
+    class PrescriptionViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textView;
 
-        public void bind(Prescription prescription, OnItemClickListener listener) {
+        void bind(Prescription prescription, OnItemClickListener listener) {
             itemView.setOnClickListener(v -> listener.onItemClick(prescription));
         }
 
-        public PrescriptionViewHolder(View itemView) {
+        PrescriptionViewHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.prescription_show_brief);
+            textView = itemView.findViewById(R.id.prescription_row_brief);
         }
     }
 }

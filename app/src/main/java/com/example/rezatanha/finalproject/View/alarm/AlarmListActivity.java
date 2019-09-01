@@ -55,11 +55,7 @@ public class AlarmListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         alarmViewModel = ViewModelProviders.of(this).get(AlarmViewModel.class);
-
         alarmViewModel.getAllWords().observe(this, adapter::setWords);
-        alarmViewModel.getAllWords().observe(this, adapter::setWords);
-
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(AlarmListActivity.this, AlarmCreationActivity.class);

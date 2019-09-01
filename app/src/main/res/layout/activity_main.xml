@@ -5,26 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/light_blue"
     android:fitsSystemWindows="true">
-    <RelativeLayout
-        android:id="@+id/loadingPanel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateDrawable="@drawable/progress"/>
-    </RelativeLayout>
 
     <include
         android:id="@+id/content_main"
         layout="@layout/content_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_100ssp"
-        android:visibility="gone"
-        />
+        android:layout_marginTop="@dimen/_100ssp" />
 
 </RelativeLayout>

@@ -27,4 +27,12 @@ public class PrescriptionViewModel extends AndroidViewModel {
     public void insert(Prescription prescription) {
         mRepository.insert(prescription);
     }
+
+    public void update(Prescription prescription) {
+        mRepository.update(prescription);
+    }
+
+    public void remove(Prescription prescription) {
+        mRepository.remove(prescription);
+    }
 }
